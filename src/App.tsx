@@ -1,6 +1,7 @@
 import { range } from "ramda";
-import { useMemo, useRef, useState } from "react";
+import { useCallback, useMemo, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
+import { CopyIcon } from "./CopyIcon";
 
 function App() {
     const diceInput = useRef<HTMLInputElement>(null);
@@ -20,6 +21,10 @@ function App() {
 
     const [result, setResult] = useState<string | null>(null);
 
+    const onCopyResult = useCallback(() => {
+        navigator.clipboard.writeText(result ?? "");
+    }, [result]);
+
     async function compute() {
         if (inputDiceArr.length <= 0) return setResult("Need dices input.");
 
@@ -28,7 +33,7 @@ function App() {
         setResult(
             await invoke("compute", {
                 inputD6: inputDiceArr.join("|"),
-                inputLv: (spellLv).toString(),
+                inputLv: spellLv.toString(),
             })
         );
     }
@@ -122,10 +127,12 @@ function App() {
                 </div>
             </form>
 
-            <div className="card bg-primary mt-5 w-96 m-auto shadow-xl">
-                <div className="card-body p-2 shadow-inner text-center text-primary-content">
-                    {result ?? "Waiting for compute"}
-                </div>
+            <div
+                onClick={onCopyResult}
+                className="btn h-auto bg-primary hover:bg-primary/70 active:bg-primary mt-5 w-96 m-auto shadow-xl p-2 text-center text-primary-content"
+            >
+                <CopyIcon className="h-4 w-4" />
+                {result ?? "Waiting for compute"}
             </div>
         </main>
     );
