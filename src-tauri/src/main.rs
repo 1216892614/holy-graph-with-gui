@@ -21,13 +21,22 @@ fn compute(input_d6: String, input_lv: String) -> String {
 
     let input_lv: usize = input_lv.parse().unwrap();
 
-    input_d6.sort();
-
     let this_prime = [
         PRIME_LUT[(input_lv - 1) * 3 + 0],
         PRIME_LUT[(input_lv - 1) * 3 + 1],
         PRIME_LUT[(input_lv - 1) * 3 + 2],
     ];
+
+    let max_dice_res = input_d6
+        .iter()
+        .sum::<i32>()
+        .max(input_d6.iter().fold(1, |acc, x| acc * x));
+
+    if this_prime.iter().all(|n| max_dice_res < *n) {
+        return "N/A".to_owned();
+    }
+
+    input_d6.sort();
 
     let now = Instant::now();
     println!("task generating...");

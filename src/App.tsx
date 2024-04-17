@@ -1,4 +1,4 @@
-import { range } from "ramda";
+import { range, sum } from "ramda";
 import { useMemo, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
 
@@ -42,8 +42,11 @@ function App() {
                 }}
             >
                 <div
-                    onClick={() => diceInput.current?.focus()}
-                    className="w-screen px-5 flex flex-wrap items-center justify-center [&>*]:m-2"
+                    onClick={() => {
+                        diceInput.current?.focus();
+                        diceInput.current?.select();
+                    }}
+                    className="w-screen px-5 flex flex-wrap items-center justify-center cursor-text [&>*]:m-2"
                 >
                     {range(0, Math.max(inputDice.length, 4)).map((i) => (
                         <div
@@ -88,7 +91,9 @@ function App() {
                                 </span>
                             </p>
                         ) : (
-                            <p className="text-error">Input D6 results plz...</p>
+                            <p className="text-error">
+                                Input D6 results plz...
+                            </p>
                         )}
 
                         <input
