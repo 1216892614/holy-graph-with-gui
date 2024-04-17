@@ -1,4 +1,4 @@
-import { range, sum } from "ramda";
+import { range } from "ramda";
 import { useMemo, useRef, useState } from "react";
 import { invoke } from "@tauri-apps/api/tauri";
 
