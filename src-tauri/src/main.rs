@@ -22,9 +22,9 @@ fn compute(input_d6: String, input_lv: String) -> String {
     let input_lv: usize = input_lv.parse().unwrap();
 
     let this_prime = [
-        PRIME_LUT[(input_lv - 1) * 3 + 0],
-        PRIME_LUT[(input_lv - 1) * 3 + 1],
-        PRIME_LUT[(input_lv - 1) * 3 + 2],
+        PRIME_LUT[(input_lv) * 3 + 0],
+        PRIME_LUT[(input_lv) * 3 + 1],
+        PRIME_LUT[(input_lv) * 3 + 2],
     ];
 
     let max_dice_res = input_d6

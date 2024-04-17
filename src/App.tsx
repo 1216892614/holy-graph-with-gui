@@ -28,7 +28,7 @@ function App() {
         setResult(
             await invoke("compute", {
                 inputD6: inputDiceArr.join("|"),
-                inputLv: spellLv.toString(),
+                inputLv: (spellLv).toString(),
             })
         );
     }
@@ -123,7 +123,7 @@ function App() {
             </form>
 
             <div className="card bg-primary mt-5 w-96 m-auto shadow-xl">
-                <div className="card-body shadow-inner text-center text-primary-content">
+                <div className="card-body p-2 shadow-inner text-center text-primary-content">
                     {result ?? "Waiting for compute"}
                 </div>
             </div>
